@@ -13,16 +13,19 @@ module Api
       end
 
       def create
-        @capacity = Capacity.create(capacity_params)
-        if @capacity.save
-          @car = Car.create(car_params)
-          if @car.save
-            render json: @car, status: :created
+        Car.transaction do
+          @capacity = Capacity.new(capacity_params)
+          if @capacity.save
+            @car = Car.new(car_params)
+            if @car.save
+              render json: @car, status: :created
+            else
+              render json: @car.errors, status: :unprocessable_entity
+              raise ActiveRecord::Rollback
+            end
           else
-            render json: @car.errors, status: :unprocessable_entity
+            render json: @capacity.errors, status: :unprocessable_entity
           end
-        else
-          render json: @capacity.errors, status: :unprocessable_entity
         end
       end
 
