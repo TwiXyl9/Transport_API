@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_19_212012) do
     t.index ["capacity_id"], name: "index_cars_on_capacity_id"
   end
 
-  create_table "type_of_unloadings", force: :cascade do |t|
+  create_table "tail_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

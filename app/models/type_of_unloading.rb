@@ -1,2 +1,0 @@
-class TypeOfUnloading < ApplicationRecord
-end

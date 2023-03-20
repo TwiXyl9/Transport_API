@@ -27,10 +27,15 @@ module Api
       end
 
       def update
-        if @car.update(car_params)
-          render json: @car
+        @capacity = @car.capacity
+        if !@capacity.update(capacity_params)
+          render json: @capacity.errors, status: :unprocessable_entity
         else
-          render json: @car.errors, status: :unprocessable_entity
+          if @car.update(car_params)
+            render json: @car , status: :created
+          else
+            render json: car.errors, status: :unprocessable_entity
+          end
         end
       end
 

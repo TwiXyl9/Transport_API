@@ -1,19 +1,19 @@
 module Api
   module V1
-    class TypesOfUnloadingController < ApplicationController
+    class TailTypesController < ApplicationController
       before_action :set_type, only: %i[ show update destroy]
       def index
-        @types = TypeOfUnloading.all
+        @types = TailType.all
 
         render json: @types
       end
 
       def show
-        render json: @types
+        render json: @type
       end
 
       def create
-        @type = TypeOfUnloading.create(type_params)
+        @type = TailType.create(type_params)
         if @type.save
           render json: @type, status: :created
         else
@@ -35,11 +35,11 @@ module Api
 
       private
       def set_type
-        @type = TypeOfUnloading.find(params[:id])
+        @type = TailType.find(params[:id])
       end
 
       def type_params
-        params.require(:type).permit(:name)
+        params.require(:tail_type).permit(:name)
       end
     end
   end
