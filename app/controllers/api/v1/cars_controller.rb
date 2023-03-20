@@ -57,7 +57,7 @@ module Api
 
       def car_params
         params[:car].merge!(:capacity_id => @capacity.id)
-        params.require(:car).permit(:brand,:model,:capacity_id)
+        params.require(:car).permit(:brand,:model,:capacity_id, :tail_type_id)
       end
 
     end
