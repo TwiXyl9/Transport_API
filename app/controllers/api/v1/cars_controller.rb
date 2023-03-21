@@ -4,7 +4,6 @@ module Api
       before_action :set_car, only: %i[ show update destroy]
       def index
         @cars = Car.all
-
         render json: @cars
       end
 
