@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_21_071354) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_22_134849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,12 +40,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_21_071354) do
     t.index ["tail_type_id"], name: "index_cars_on_tail_type_id"
   end
 
+  create_table "news", force: :cascade do |t|
+    t.string "е"
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "points", force: :cascade do |t|
     t.float "latitude"
     t.float "longitude"
-    t.string "address"
+    t.string "adress"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.bigint "start_point_id"
+    t.bigint "end_point_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["end_point_id"], name: "index_routes_on_end_point_id"
+    t.index ["start_point_id"], name: "index_routes_on_start_point_id"
   end
 
   create_table "tail_types", force: :cascade do |t|
@@ -80,4 +97,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_21_071354) do
 
   add_foreign_key "cars", "capacities"
   add_foreign_key "cars", "tail_types"
+  add_foreign_key "routes", "points", column: "end_point_id"
+  add_foreign_key "routes", "points", column: "start_point_id"
 end

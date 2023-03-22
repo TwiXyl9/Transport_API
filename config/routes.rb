@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :cars
       resources :tail_types
       resources :cargo_types
+      resources :news
     end
   end
 end
