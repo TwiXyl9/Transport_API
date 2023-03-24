@@ -1,19 +1,19 @@
 class Api::V1::NewsController < ApplicationController
   before_action :set_news, only: %i[ show update destroy]
   def index
-    @news_all = News.all
+    @all_news = News.all
 
-    render json: @news_all
+    render json: AllNewsRepresenter.new(@all_news).to_json
   end
 
   def show
-    render json: @news
+    render json: NewsRepresenter.new(@news).to_json
   end
 
   def create
     @news = News.create(news_params)
     if @news.save
-      render json: @news, status: :created
+      render json: NewsRepresenter.new(@news).to_json, status: :created
     else
       render json: @news.errors, status: :unprocessable_entity
     end
@@ -21,7 +21,7 @@ class Api::V1::NewsController < ApplicationController
 
   def update
     if @news.update(news_params)
-      render json: @news
+      render json: NewsRepresenter.new(@news).to_json
     else
       render json: @news.errors, status: :unprocessable_entity
     end
