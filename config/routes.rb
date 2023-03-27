@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :tail_types
       resources :cargo_types
       resources :news
+      resources :additional_services, :path => 'services'
     end
   end
 end

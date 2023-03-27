@@ -12,20 +12,15 @@ class CarRepresenter
         id: @car.id,
         brand: @car.brand,
         model: @car.model,
-      },
-      'capacity': {
-        id: @car.capacity.id,
+        images: @car.images_url,
+        capacity_id: @car.capacity.id,
         width: @car.capacity.width,
         height: @car.capacity.height,
         length: @car.capacity.length,
-        num_of_pallets: @car.capacity.num_of_pallets
-      },
-      'tail_type': {
-        id: @car.tail_type.id,
-        name: @car.tail_type.name
+        num_of_pallets: @car.capacity.num_of_pallets,
+        tail_type_id: @car.tail_type.id,
+        tail_type: @car.tail_type.name
       }
-
-
     }
   end
 end
