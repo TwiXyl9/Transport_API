@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_27_130021) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_27_201645) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_130021) do
     t.integer "num_of_pallets"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "load_capacity"
   end
 
   create_table "cargo_types", force: :cascade do |t|
@@ -71,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_130021) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "tail_type_id", null: false
+    t.float "load_capacity"
     t.index ["capacity_id"], name: "index_cars_on_capacity_id"
     t.index ["tail_type_id"], name: "index_cars_on_tail_type_id"
   end
