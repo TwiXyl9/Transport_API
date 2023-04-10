@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  phone: MyString
+  name: MyString
+  date: 2023-03-31 10:11:58
+  stage: 1
+  car: one
+  route: one
+  user: one
+  cargo_type: one
+
+two:
+  phone: MyString
+  name: MyString
+  date: 2023-03-31 10:11:58
+  stage: 1
+  car: two
+  route: two
+  user: two
+  cargo_type: two

@@ -3,7 +3,7 @@ class Car < ApplicationRecord
   belongs_to :tail_type
   has_many_attached :images, :dependent => :destroy
 
-  validates :brand, :model, presence: true
+  validates :brand, :model, :price, presence: true
 
   def images_url
     images.map{|img| Rails.application.routes.url_helpers.url_for(img)}

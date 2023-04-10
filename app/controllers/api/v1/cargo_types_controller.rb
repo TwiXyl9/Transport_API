@@ -2,7 +2,6 @@ class Api::V1::CargoTypesController < ApplicationController
   before_action :set_type, only: %i[ show update destroy]
   def index
     @types = CargoType.all
-
     render json: @types
   end
 

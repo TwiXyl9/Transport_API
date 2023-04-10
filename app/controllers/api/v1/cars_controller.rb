@@ -49,12 +49,12 @@ class Api::V1::CarsController < ApplicationController
   end
 
   def capacity_params
-    params.require(:capacity).permit(:width,:height,:length,:num_of_pallets)
+    params.require(:capacity).permit(:width,:height,:length,:num_of_pallets,:load_capacity)
   end
 
   def car_params
     params[:car].merge!(:capacity_id => @capacity.id)
-    params.require(:car).permit(:brand,:model,:capacity_id, :tail_type_id, {images: []} )
+    params.require(:car).permit(:brand, :model, :price, :capacity_id, :tail_type_id, {images: []} )
   end
 end
 

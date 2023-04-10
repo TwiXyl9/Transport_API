@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_27_201645) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_10_185848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,17 +72,59 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_201645) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "tail_type_id", null: false
-    t.float "load_capacity"
+    t.float "price"
     t.index ["capacity_id"], name: "index_cars_on_capacity_id"
     t.index ["tail_type_id"], name: "index_cars_on_tail_type_id"
   end
 
+  create_table "devise_api_tokens", force: :cascade do |t|
+    t.string "resource_owner_type", null: false
+    t.uuid "resource_owner_id", null: false
+    t.string "access_token", null: false
+    t.string "refresh_token"
+    t.integer "expires_in", null: false
+    t.datetime "revoked_at"
+    t.string "previous_refresh_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_token"], name: "index_devise_api_tokens_on_access_token"
+    t.index ["previous_refresh_token"], name: "index_devise_api_tokens_on_previous_refresh_token"
+    t.index ["refresh_token"], name: "index_devise_api_tokens_on_refresh_token"
+    t.index ["resource_owner_type", "resource_owner_id"], name: "index_devise_api_tokens_on_resource_owner"
+  end
+
   create_table "news", force: :cascade do |t|
-    t.string "е"
     t.string "title"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_additional_services", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "additional_service_id"
+    t.integer "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["additional_service_id"], name: "index_order_additional_services_on_additional_service_id"
+    t.index ["order_id"], name: "index_order_additional_services_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "phone"
+    t.string "name"
+    t.datetime "date"
+    t.integer "stage"
+    t.bigint "car_id", null: false
+    t.bigint "route_id", null: false
+    t.bigint "user_id"
+    t.bigint "cargo_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_id"], name: "index_orders_on_car_id"
+    t.index ["cargo_type_id"], name: "index_orders_on_cargo_type_id"
+    t.index ["route_id"], name: "index_orders_on_route_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "points", force: :cascade do |t|
@@ -94,8 +136,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_201645) do
   end
 
   create_table "routes", force: :cascade do |t|
-    t.bigint "start_point_id"
-    t.bigint "end_point_id"
+    t.bigint "start_point_id", null: false
+    t.bigint "end_point_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["end_point_id"], name: "index_routes_on_end_point_id"
@@ -136,6 +178,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_201645) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cars", "capacities"
   add_foreign_key "cars", "tail_types"
+  add_foreign_key "order_additional_services", "additional_services"
+  add_foreign_key "order_additional_services", "orders"
+  add_foreign_key "orders", "cargo_types"
+  add_foreign_key "orders", "cars"
+  add_foreign_key "orders", "routes"
+  add_foreign_key "orders", "users"
   add_foreign_key "routes", "points", column: "end_point_id"
   add_foreign_key "routes", "points", column: "start_point_id"
 end

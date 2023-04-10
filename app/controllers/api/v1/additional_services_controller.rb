@@ -15,7 +15,7 @@ class Api::V1::AdditionalServicesController < ApplicationController
     if @service.save
       render json: @service, status: :created
     else
-      render json: @service.errors, status: :unprocessable_entity
+      render json: {'errors': @service.errors}, status: :unprocessable_entity
     end
   end
 
