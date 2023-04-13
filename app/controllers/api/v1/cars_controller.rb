@@ -2,11 +2,11 @@ class Api::V1::CarsController < ApplicationController
   before_action :set_car, only: %i[ show update destroy]
   def index
     @cars = Car.all
-    render json: CarsRepresenter.new(@cars).to_json
+    render json: @cars
   end
 
   def show
-    render json: CarRepresenter.new(@car).to_json
+    render json: @car
   end
 
   def create

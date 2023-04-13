@@ -5,7 +5,4 @@ class Car < ApplicationRecord
 
   validates :brand, :model, :price, presence: true
 
-  def images_url
-    images.map{|img| Rails.application.routes.url_helpers.url_for(img)}
-  end
 end

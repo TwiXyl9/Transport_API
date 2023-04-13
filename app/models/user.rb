@@ -2,6 +2,9 @@
 
 class User < ActiveRecord::Base
   has_many :orders
+
+  validates :name, :phone, presence: true
+
   extend Devise::Models
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

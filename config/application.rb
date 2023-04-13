@@ -15,7 +15,7 @@ module TransportApi
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
 
-    config.autoload_paths += %W(#{config.root}/app/representers)
+    config.i18n.default_locale = :ru
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

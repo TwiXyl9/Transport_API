@@ -1,0 +1,22 @@
+en:
+  devise:
+    api:
+      error_response:
+        invalid_authentication: "Некорректный email или пароль"
+        invalid_token: "Некорректный token"
+        expired_token: "Срок token'а истек"
+        expired_refresh_token: "Срок refresh token'а истек"
+        revoked_token: "Token был отозван"
+        refresh_token_disabled: "Refresh token отключен для приложения"
+        invalid_refresh_token: "Некорректный refresh token"
+        invalid_email: "Некорректный email"
+        invalid_resource_owner: "Некорректный владелец ресурса"
+        resource_owner_create_error: "Владелец ресурса не создан"
+        devise_api_token_create_error: "Token не может быть создан"
+        devise_api_token_revoke_error: "Token не может быть отозван"
+        lockable:
+          locked: "Ваш аккаунт заблокирован!"
+        confirmable:
+          unconfirmed: "Вам нужно подтвердить ваш аккаунт перед тем как продолжить"
+        registerable:
+          signed_up_but_unconfirmed: "Сообщение с ссылкой для подтвержения аккаунта была отправлена на вашу почту. Пожалуйства, перейдите по ссылке для активации вашего аккаунта."

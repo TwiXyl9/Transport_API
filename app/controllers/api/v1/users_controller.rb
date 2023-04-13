@@ -6,6 +6,9 @@ class Api::V1::UsersController < ApplicationController
     render json: @user
   end
 
+  def get_orders
+
+  end
   private
   def set_user
     @user = User.find(params[:id])
