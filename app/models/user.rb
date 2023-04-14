@@ -3,7 +3,7 @@
 class User < ActiveRecord::Base
   has_many :orders
 
-  validates :name, :phone, presence: true
+  validates :name, :phone, presence: true, on: :create
 
   extend Devise::Models
   # Include default devise modules. Others available are:

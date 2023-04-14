@@ -1,7 +1,11 @@
 class Api::V1::OrdersController < ApplicationController
   before_action :set_order, only: %i[ show update destroy]
   def index
-    @orders = Order.all
+    if params[:user_id]
+      @orders = User.find_by_id(params[:user_id]).orders
+    else
+      @orders = Order.all
+    end
     render json: @orders
   end
 
@@ -51,13 +55,13 @@ class Api::V1::OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
   def start_point_params
-    params.require(:route).require(:start_point).permit(:latitude,:longitude,:address)
+    params[:order].require(:route).require(:start_point).permit(:latitude,:longitude,:address)
   end
   def end_point_params
-    params.require(:route).require(:end_point).permit(:latitude,:longitude,:address)
+    params[:order].require(:route).require(:end_point).permit(:latitude,:longitude,:address)
   end
   def order_params
     params[:order].merge!(:route_id => @route.id)
-    params.require(:order).permit(:name,:phone,:date,:cargo_type_id,:car_id, :route_id, order_additional_services_attributes: [:amount, :additional_service_id])
+    params.require(:order).permit(:name,:phone,:date,:cargo_type_id,:car_id, :user_id, :route_id, order_additional_services_attributes: [:amount, :additional_service_id])
   end
 end
