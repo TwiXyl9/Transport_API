@@ -1,5 +1,5 @@
 class OrderSerializer < ActiveModel::Serializer
-  attributes :id, :name, :phone, :date, :stage
+  attributes :id, :name, :phone, :date, :stage, :total_price
   belongs_to :car, dependent: :destroy
   belongs_to :route
   belongs_to :cargo_type

@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   has_many :order_additional_services, dependent: :destroy
   has_many :additional_services, :through => :order_additional_services
 
-  validates :phone, :name, :date, presence: true
+  validates :phone, :name, :date, :total_price, presence: true
 
   enum stage: [:created, :confirmed, :rejected, :completed, :archival]
   after_initialize :set_default_stage, :if => :new_record?

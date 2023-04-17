@@ -62,6 +62,6 @@ class Api::V1::OrdersController < ApplicationController
   end
   def order_params
     params[:order].merge!(:route_id => @route.id)
-    params.require(:order).permit(:name,:phone,:date,:cargo_type_id,:car_id, :user_id, :route_id, order_additional_services_attributes: [:amount, :additional_service_id])
+    params.require(:order).permit(:name, :phone, :date, :total_price, :cargo_type_id,:car_id, :user_id, :route_id, order_additional_services_attributes: [:amount, :additional_service_id])
   end
 end
