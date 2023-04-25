@@ -7,7 +7,7 @@ class Order < ApplicationRecord
 
   validates :phone, :name, :date, :total_price, presence: true
 
-  enum stage: [:created, :confirmed, :rejected, :completed, :archival]
+  enum stage: [:Создан, :Подтвержден, :Отклонен, :Завершен]
   after_initialize :set_default_stage, :if => :new_record?
 
   def order_additional_services_attributes=(array)
