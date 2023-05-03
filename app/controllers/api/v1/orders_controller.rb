@@ -22,6 +22,7 @@ class Api::V1::OrdersController < ApplicationController
           @route = Route.new(start_point: @start_point, end_point: @end_point)
           if @route.save
             @order = Order.new(order_params)
+            @order.date = DateTime.strptime(order_params[:date],"%d.%m.%Y, %H:%M")
             if @order.save
               render json: @order, status: :created
             else

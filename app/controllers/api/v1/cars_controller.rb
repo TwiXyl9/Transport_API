@@ -32,7 +32,7 @@ class Api::V1::CarsController < ApplicationController
       render json: @capacity.errors, status: :unprocessable_entity
     else
       if @car.update(car_params)
-        render json: @car , status: :created
+        render json: @car
       else
         render json: car.errors, status: :unprocessable_entity
       end
@@ -45,6 +45,7 @@ class Api::V1::CarsController < ApplicationController
 
   private
   def set_car
+    p(params)
     @car = Car.find(params[:id])
   end
 
@@ -54,7 +55,7 @@ class Api::V1::CarsController < ApplicationController
 
   def car_params
     params[:car].merge!(:capacity_id => @capacity.id)
-    params.require(:car).permit(:brand, :model, :price, :capacity_id, :tail_type_id, {images: []} )
+    params.require(:car).permit(:brand, :model, :price, :capacity_id, :tail_type_id, images: [] )
   end
 end
 

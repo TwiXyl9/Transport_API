@@ -21,7 +21,7 @@ class Api::V1::NewsController < ApplicationController
 
   def update
     if @news.update(news_params)
-      render json: @news.to_json
+      render json: @news
     else
       render json: @news.errors, status: :unprocessable_entity
     end

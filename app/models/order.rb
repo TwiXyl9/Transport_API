@@ -18,6 +18,6 @@ class Order < ApplicationRecord
 
   private
   def set_default_stage
-    self.stage ||= :created
+    self.stage ||= :Создан
   end
 end
