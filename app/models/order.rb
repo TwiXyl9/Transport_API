@@ -7,12 +7,12 @@ class Order < ApplicationRecord
 
   validates :phone, :name, :date, :total_price, presence: true
 
-  enum stage: [:Создан, :Подтвержден, :Отклонен, :Завершен]
+  enum stage: [:Создан, :Подтвержден, :Отклонен, :Выполнен]
   after_initialize :set_default_stage, :if => :new_record?
 
   def order_additional_services_attributes=(array)
     array.each do |item|
-      order_additional_services.build(item)
+      order_additional_services.find_or_initialize_by(id: item[:id])
     end
   end
 

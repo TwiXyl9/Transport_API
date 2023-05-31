@@ -36,6 +36,6 @@ class Api::V1::AdditionalServicesController < ApplicationController
     @service = AdditionalService.find(params[:id])
   end
   def service_params
-    params.require(:service).permit(:name, :price)
+    params.require(:service).permit(:name, :price, :description, :image)
   end
 end

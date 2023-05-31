@@ -1,5 +1,5 @@
 class CarSerializer < ActiveModel::Serializer
-  attributes :id, :brand, :model, :price, :images_url, :capacity, :tail_type
+  attributes :id, :brand, :model, :price_per_hour, :price_per_kilometer, :images_url, :capacity, :tail_type
   belongs_to :capacity
   belongs_to :tail_type
   def images_url

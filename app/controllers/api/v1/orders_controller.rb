@@ -40,10 +40,26 @@ class Api::V1::OrdersController < ApplicationController
   end
 
   def update
-    if @order.update(order_params)
-      render json: @order
-    else
-      render json: @order.errors, status: :unprocessable_entity
+    Order.transaction do
+      @route = @order.route
+      start_point = @route.start_point
+      end_point = @route.start_point
+      if start_point.update!(start_point_params)
+        if end_point.update!(end_point_params)
+          @order.update(order_params)
+          @order.date = DateTime.strptime(order_params[:date],"%d.%m.%Y, %H:%M")
+          if @order.save
+            render json: @order, status: :ok
+          else
+            render json: @order.errors, status: :unprocessable_entity
+            raise ActiveRecord::Rollback
+          end
+        else
+          render json: end_point.errors, status: :unprocessable_entity
+        end
+      else
+        render json: start_point.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -63,6 +79,6 @@ class Api::V1::OrdersController < ApplicationController
   end
   def order_params
     params[:order].merge!(:route_id => @route.id)
-    params.require(:order).permit(:name, :phone, :date, :total_price, :cargo_type_id,:car_id, :user_id, :route_id, order_additional_services_attributes: [:amount, :additional_service_id])
+    params.require(:order).permit(:name, :phone, :date, :total_price, :cargo_type_id, :car_id, :stage, :user_id, :route_id, order_additional_services_attributes: [:id, :amount, :additional_service_id])
   end
 end
