@@ -14,6 +14,10 @@ gem "puma", "~> 5.0"
 
 gem "devise_token_auth"
 
+gem 'actionmailer'
+
+gem 'google-cloud-storage', require: false
+
 gem 'active_model_serializers'
 
 gem 'devise-i18n'

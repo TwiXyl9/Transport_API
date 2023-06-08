@@ -9,14 +9,20 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :api
+         :recoverable, :rememberable, :validatable, :confirmable
   include DeviseTokenAuth::Concerns::User
 
-  enum role: [:user,:admin]
+  enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
+
+  self.confirm_within = 10.minutes
+  #self.reconfirmable = true
+  self.confirmation_keys = [:email]
+
 
   private
   def set_default_role
     self.role ||= :user
   end
+
 end

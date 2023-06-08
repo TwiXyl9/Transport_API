@@ -1,7 +1,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-
   Rails.application.routes.default_url_options = {
     host: 'http://localhost:3000'
   }
@@ -35,13 +34,26 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :google_dev
 
   # Don't care if the mailer can't send.
-  # config.action_mailer.default_url_options = { host: '127.0.0.1', port: '3000' }
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = { :address => '127.0.0.1', :port => 1025 }
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = { from: Rails.application.credentials.gmail['user_name'] }
+  config.action_mailer.default_url_options = { host: 'localhost:5050', path: '/#/' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name:      Rails.application.credentials.gmail['user_name'],
+    password:       Rails.application.credentials.gmail['password'],
+    address:        'smtp.gmail.com',
+    domain:         'gmail.com',
+    port:           '587',
+    authentication: :plain,
+    enable_starttls_auto: true,
+    open_timeout: 5,
+    read_timeout: 5
+  }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
